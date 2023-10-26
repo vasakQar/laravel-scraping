@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use DOMDocument;
+use DOMXPath;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Termwind\Components\Dd;
@@ -35,6 +37,21 @@ class ScrapingCarsData extends Command
 
         $content = file_get_contents('https://www.list.am/category/23', false, $context);
         
-        dd(gettype($content));
+        $doc = new DOMDocument();
+        libxml_use_internal_errors(true); // Ignore HTML errors
+        $doc->loadHTML($content);
+        libxml_use_internal_errors(false);
+
+         // Create a DOMXPath object to query the DOM
+        $xpath = new DOMXPath($doc);
+
+         // Extract div contents
+        $divContents = [];
+        $divNodes = $xpath->query('//div[@class="section"]//div[@class="i"]');
+
+        foreach ($divNodes as $divNode) {
+            $divContents[] = $divNode->textContent; // Extract text content of the div
+        }
+        dd($divContents);
     }
 }
