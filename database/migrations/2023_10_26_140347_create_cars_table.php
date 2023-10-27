@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('list_code')->unique();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('brand_id');
+            $table->string('name');
+            $table->year('year');
+            $table->decimal('amount', 10, 2);
+            $table->string('currency_code', 3);
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories');

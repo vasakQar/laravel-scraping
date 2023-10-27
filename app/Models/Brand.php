@@ -9,6 +9,12 @@ class Brand extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'list_code',
+        'category_id',
+        'name'
+    ];
+
     public function category() {
         return $this->belongsTo(Category::class);
     }
