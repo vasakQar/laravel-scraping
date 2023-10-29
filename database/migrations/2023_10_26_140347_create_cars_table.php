@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('list_code')->unique();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('brand_id');
-            $table->string('name');
+            $table->string('name')->charset('utf8')->collation('utf8_unicode_ci');
             $table->year('year');
             $table->decimal('amount', 10, 2);
             $table->string('currency_code', 3);
