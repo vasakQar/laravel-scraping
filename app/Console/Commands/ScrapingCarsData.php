@@ -88,7 +88,9 @@ class ScrapingCarsData extends Command
                         ['name' => $brandName]
                     );
                     $brandPath = $this->getDom("https://www.list.am/category/23?n=&bid=$catId&mid=$brandId");
-                    $paginationPath = '//*[@id="contentr"]/div[4]/div[2]/span';
+
+                    // $paginationPath = '//*[@id="contentr"]/div[4]/div[2]/span';
+                    $paginationPath = '//*[@id="contentr"]/div[4]/div[2]//*[@class="pp"]';
                     $pagination = $brandPath->query($paginationPath);
                     $pageCount = isset($pagination[0]) ? $pagination[0]->childNodes[$pagination[0]->childNodes->length - 1]->textContent : 1;
                     
